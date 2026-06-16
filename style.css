@@ -1,0 +1,222 @@
+:root {
+  --bg: #181818;
+  --text: #bababa;
+  --accent: #39ff14;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--accent);
+}
+
+header {
+  padding: 10px;
+  border-bottom: 2px solid #ddd;
+}
+
+header h1 {
+  font-size: 1.5rem;
+}
+header h2 {
+  font-size: 1.2rem;
+}
+
+main {
+  width: 100%;
+  height: 90vh;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.container div.references {
+  width: 20%;
+  border-right: 2px solid #ddd;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+/*
+ * refの構成は、
+ * - ref番号
+ * - 名前
+ * - 簡単な機能
+ * - 簡単な例
+ * */
+.container div.references .ref {
+  border-bottom: 1px solid #bababa;
+  padding: 1.5rem 0.8rem;
+}
+
+.container div.references .ref .ref-number {
+  margin-right: 5px;
+}
+
+.container div.references .ref .ref-number::after {
+  content: ".";
+}
+
+.container div.references .ref .ref-name {
+
+}
+
+.container div.references .ref .ref-module {
+
+}
+
+.container div.references .ref .ref-example {
+
+}
+
+.container div.main-content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+/* メニューバー：タブで入力欄と結果を切り替える */
+.container div.main-content #menubar {
+  border-bottom: 2px solid #bababa;
+  display: flex;
+}
+
+.container div.main-content #menubar .tabs {
+  display: flex;
+}
+
+.container div.main-content #menubar .tabs .tab-button {
+  all: unset;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.container div.main-content #menubar .tabs .tab-button:hover {
+  color: var(--accent);
+}
+
+.container div.main-content #menubar .tabs .tab-button.active {
+  border-bottom: 2px solid var(--accent);
+}
+
+.container div.main-content #menubar .tabs .buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 2px solid #ddd;
+}
+
+.container div.main-content #menubar .tabs .buttons button {
+  all: unset;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.container div.main-content #menubar .tabs .buttons button:hover {
+  transform: scale(1.05);
+}
+
+
+.container div.main-content .view {
+  flex: 1;
+  min-height: 0;
+  display: none;
+  flex-direction: column;
+}
+
+.container div.main-content .view.active {
+  display: flex;
+}
+
+.container div.main-content #result {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+.container div.main-content #command-area {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.container div.main-content #command-area textarea {
+  border-radius: 0;
+  /* ボタン特有のものを消す */
+  appearance: none;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+.container div.main-content #command-area textarea#command-input {
+  width: 100%;
+  height: 100%;
+  font-size: 1.5rem;
+  padding: 0.5rem 0.5rem;
+  color: #bbb;
+  border-right: 1px solid #bababa;
+}
+
+.m-plus-1-code {
+  font-family: "M PLUS 1 Code", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.flex-box {
+  display: flex;
+}
+
+.indented-block {
+  margin-left: 2rem;
+}
+
+.box {
+  position: absolute;
+  background-color: #bbb;
+  transition: background-color 0.4s ease, opacity 0.3s ease;
+}
+
+@keyframes spin-anim {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes shake-anim {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-8px); }
+  40%  { transform: translateX(8px); }
+  60%  { transform: translateX(-5px); }
+  80%  { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes box-pop {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.2); }
+  70%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #39ff14;
+  pointer-events: none;
+}
+
+@keyframes particle-fly {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+}
+

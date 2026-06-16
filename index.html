@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS22課題</title>
+    <meta name="description" content="ページの説明文">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- 外部CSSの読み込み -->
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code&display=swap" rel="stylesheet">
+</head>
+<body class="m-plus-1-code">
+
+    <header>
+        <h1 id="title">
+          自作言語入力インターフェース
+        </h1>
+        <h2 id="sub-title">
+          これはスタック型のプログラミング言語で操作できる、JavaScriptプレイグラウンドです。          
+        </h2>
+    </header>
+
+    <main>
+      <div class="container"> <!-- flex -->
+        <div class="references">
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">1</p>
+              <p class="ref-name">数値</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">数値をスタックに積む</p>
+              <p class="ref-example">10 20 30</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">2</p>
+              <p class="ref-name">四則演算 + - * /</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">上2つを取り出して計算し、結果を積む</p>
+              <p class="ref-example">3 4 +   → 7</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">3</p>
+              <p class="ref-name">比較 = &lt; &gt;</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">上2つを比較し、真なら1・偽なら0を積む</p>
+              <p class="ref-example">3 5 &lt;   → 1</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">4</p>
+              <p class="ref-name">print</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">トップの値をコンソールに出力する</p>
+              <p class="ref-example">42 print</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">5</p>
+              <p class="ref-name">place</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">x y w h で箱を生成し、IDを積む</p>
+              <p class="ref-example">50 50 80 80 place</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">6</p>
+              <p class="ref-name">move</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">x y id で箱を絶対座標へ移動</p>
+              <p class="ref-example">200 100 id move</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">7</p>
+              <p class="ref-name">rmove</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">dx dy id で箱を相対移動</p>
+              <p class="ref-example">50 0 id rmove</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">8</p>
+              <p class="ref-name">resize</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">w h id で箱のサイズを変更</p>
+              <p class="ref-example">120 120 id resize</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">9</p>
+              <p class="ref-name">color</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">r g b id で箱の色を変更</p>
+              <p class="ref-example">255 0 0 id color</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">10</p>
+              <p class="ref-name">opacity</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">val id で透明度を変更（0〜1、小数は割り算で）</p>
+              <p class="ref-example">1 2 / id opacity   → 0.5</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">11</p>
+              <p class="ref-name">delete</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">id の箱を爆発エフェクトで削除</p>
+              <p class="ref-example">id delete</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">12</p>
+              <p class="ref-name">fade</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">duration id で箱をフェードアウト消去</p>
+              <p class="ref-example">500 id fade</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">13</p>
+              <p class="ref-name">clone</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">id の箱を同じ位置に複製し、新IDを積む</p>
+              <p class="ref-example">id clone</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">14</p>
+              <p class="ref-name">cloneAt</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">x y id で指定位置に複製し、新IDを積む</p>
+              <p class="ref-example">300 200 id cloneAt</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">15</p>
+              <p class="ref-name">spin</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">id の箱を回転アニメーション</p>
+              <p class="ref-example">id spin</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">16</p>
+              <p class="ref-name">shake</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">id の箱を振動アニメーション</p>
+              <p class="ref-example">id shake</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">17</p>
+              <p class="ref-name">loop</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">n [ ... ] でブロックをn回繰り返す</p>
+              <p class="ref-example">5 [ id spin ] loop</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">18</p>
+              <p class="ref-name">if</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">cond [ ... ] で条件が真ならブロック実行</p>
+              <p class="ref-example">1 [ id delete ] if</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">19</p>
+              <p class="ref-name">random</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">n を取り出し、0〜nの整数乱数を積む</p>
+              <p class="ref-example">100 random</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">20</p>
+              <p class="ref-name">sleep</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">ms ミリ秒だけ処理を待機する</p>
+              <p class="ref-example">500 sleep</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">21</p>
+              <p class="ref-name">変数定義 -&gt;</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">トップの値を変数に保存する</p>
+              <p class="ref-example">42 -&gt; x</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">22</p>
+              <p class="ref-name">変数参照</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">変数を呼び出す（中身がブロックなら実行）</p>
+              <p class="ref-example">x</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">23</p>
+              <p class="ref-name">dup</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">トップを複製する　[a] → [a a]</p>
+              <p class="ref-example">5 dup</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">24</p>
+              <p class="ref-name">swap</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">上2つを交換する　[a b] → [b a]</p>
+              <p class="ref-example">1 2 swap</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">25</p>
+              <p class="ref-name">over</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">2番目を複製して積む　[a b] → [a b a]</p>
+              <p class="ref-example">1 2 over</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">26</p>
+              <p class="ref-name">rot</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">上3つを回転する　[a b c] → [b c a]</p>
+              <p class="ref-example">1 2 3 rot</p>
+            </div>
+          </div>
+
+          <div class="ref">
+            <div class="flex-box">
+              <p class="ref-number">27</p>
+              <p class="ref-name">ブロック [ ]</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">命令の並びを値としてまとめて積む</p>
+              <p class="ref-example">[ 1 2 + ]</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="main-content">
+          <div id="menubar">
+            <div class="tabs">
+              <button class="tab-button active" data-tab="editor">入力欄</button>
+              <button class="tab-button" data-tab="result">結果</button>
+              <div class="buttons">
+                <button class="run-button">
+                  実行
+                </button>
+                <button class="clear-button">
+                  全てクリア
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="editor-view" class="view active">
+            <div id="command-area">
+              <textarea type="text" id="command-input" placeholder="ここにプログラムを入力してください"></textarea>
+            </div>
+          </div>
+
+          <div id="result-view" class="view">
+            <div id="result"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+    </footer>
+
+    <!-- 外部JavaScriptの読み込み -->
+    <script type="module" src="editor.js"></script>
+
+</body>
+
+<template>
+  <div class="ref">
+    <div class="flex-box">
+      <p class="ref-number">1</p>
+      <p class="ref-name">変数</p>
+    </div>
+    <div class="indented-block">
+      <p class="ref-module">機能詳細</p>
+      <p class="ref-example">機能例</p>
+    </div>
+  </div>
+</template>
+</html>
