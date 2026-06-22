@@ -1,0 +1,21 @@
+0 -> i 20 [
+i 38 * 30 +
+250
+30 30
+place -> _
+i 1 + -> i
+] loop
+0 -> i
+20 [
+i 13 *
+255 i 13 * -
+220
+i color
+i 1 + -> i
+] loop
+0 -> i
+20 [
+i spin
+60 sleep
+i 1 + -> i
+] loop

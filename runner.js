@@ -1,4 +1,6 @@
 import { place, move, rmove, deleteBox, colorBox, resizeBox, cloneBox, cloneBoxAt, opacityBox, spinBox, shakeBox, fadeBox } from "./interfaces.js";
+import { renderStack, renderInstructionType, resetStackView, renderPrint, makeNumber, makeId, makeBlock } from "./debug-module.js";
+
 
 let currentId = 0;
 
@@ -12,6 +14,7 @@ export default async function runInstructions(instructions) {
     result: $("#result")[0],
     variables: {}
   }
+  resetStackView();
   await runBody(instructions, stack, ctx);
 }
 
@@ -21,13 +24,14 @@ async function runBody(instructions, stack, ctx) {
 
   while (idx < queue.length) {
     const inst = queue[idx++];
+
     switch (inst.type) {
       case "number": {
-        stack.push(inst.value);
+        stack.push(makeNumber(inst.value));
         break;
       }
       case "block": {
-        stack.push(inst.body);
+        stack.push(makeBlock(inst.body));
         break;
       }
       case "print": {
@@ -35,7 +39,9 @@ async function runBody(instructions, stack, ctx) {
           alert("stack underflow");
           return;
         }
-        console.log(stack.pop())
+        const value = stack.pop().value;
+        console.log(value);
+        renderPrint(value);
         break;
       }
       case "plus": {
@@ -45,7 +51,7 @@ async function runBody(instructions, stack, ctx) {
         }
         const a = stack.pop();
         const b = stack.pop();
-        stack.push(a + b);
+        stack.push(makeNumber(b.value + a.value));
         break;
       }
       case "minus": {
@@ -55,7 +61,7 @@ async function runBody(instructions, stack, ctx) {
         }
         const a = stack.pop();
         const b = stack.pop();
-        stack.push(b - a);
+        stack.push(makeNumber(b.value - a.value));
         break;
       }
       case "mult": {
@@ -65,7 +71,7 @@ async function runBody(instructions, stack, ctx) {
         }
         const a = stack.pop();
         const b = stack.pop();
-        stack.push(a * b);
+        stack.push(makeNumber(b.value * a.value));
         break;
       }
       case "div": {
@@ -75,7 +81,7 @@ async function runBody(instructions, stack, ctx) {
         }
         const a = stack.pop();
         const b = stack.pop();
-        stack.push(a / b);
+        stack.push(makeNumber(b.value / a.value));
         break;
       }
       case "place": {
@@ -88,8 +94,8 @@ async function runBody(instructions, stack, ctx) {
         const y = stack.pop();
         const x = stack.pop();
         ctx.currentId = currentId++;
-        place(ctx, x, y, w, h);
-        stack.push(ctx.currentId); // 作成したBoxのIDをスタックに積む
+        place(ctx, x.value, y.value, w.value, h.value);
+        stack.push(makeId(ctx.currentId)); // 作成したBoxのIDをスタックに積む
         break;
       }
       case "move": {
@@ -100,7 +106,7 @@ async function runBody(instructions, stack, ctx) {
         const id = stack.pop();
         const y = stack.pop();
         const x = stack.pop();
-        await move(ctx, id, x, y);
+        await move(ctx, id.value, x.value, y.value);
         break;
       }
       case "rmove": {
@@ -111,7 +117,7 @@ async function runBody(instructions, stack, ctx) {
         const id = stack.pop();
         const dy = stack.pop();
         const dx = stack.pop();
-        await rmove(ctx, id, dx, dy);
+        await rmove(ctx, id.value, dx.value, dy.value);
         break;
       }
       case "delete": {
@@ -120,7 +126,7 @@ async function runBody(instructions, stack, ctx) {
           return;
         }
         const id = stack.pop();
-        deleteBox(ctx, id);
+        deleteBox(ctx, id.value);
         break;
       }
       case "color": {
@@ -132,7 +138,7 @@ async function runBody(instructions, stack, ctx) {
         const b = stack.pop();
         const g = stack.pop();
         const r = stack.pop();
-        colorBox(ctx, id, r, g, b);
+        colorBox(ctx, id.value, r.value, g.value, b.value);
         break;
       }
       case "resize": {
@@ -143,7 +149,7 @@ async function runBody(instructions, stack, ctx) {
         const id = stack.pop();
         const h = stack.pop();
         const w = stack.pop();
-        await resizeBox(ctx, id, w, h);
+        await resizeBox(ctx, id.value, w.value, h.value);
         break;
       }
       case "loop": {
@@ -153,8 +159,8 @@ async function runBody(instructions, stack, ctx) {
         }
         const body = stack.pop();
         const n = stack.pop();
-        for (let i = 0; i < n; i++) {
-          queue.splice(idx, 0, ...body);
+        for (let i = 0; i < n.value; i++) {
+          queue.splice(idx, 0, ...body.value);
         }
         break;
       }
@@ -165,8 +171,8 @@ async function runBody(instructions, stack, ctx) {
         }
         const body = stack.pop();
         const condition = stack.pop();
-        if (condition) {
-          queue.splice(idx, 0, ...body);
+        if (condition.value) {
+          queue.splice(idx, 0, ...body.value);
         }
         break;
       }
@@ -176,7 +182,7 @@ async function runBody(instructions, stack, ctx) {
           return;
         }
         const n = stack.pop();
-        stack.push(Math.floor(Math.random() * (n + 1)));
+        stack.push(makeNumber(Math.floor(Math.random() * (n.value + 1))));
         break;
       }
       case "eq": {
@@ -186,7 +192,7 @@ async function runBody(instructions, stack, ctx) {
         }
         const a = stack.pop();
         const b = stack.pop();
-        stack.push(b === a ? 1 : 0);
+        stack.push(makeNumber(b.value === a.value ? 1 : 0));
         break;
       }
       case "lt": {
@@ -196,7 +202,7 @@ async function runBody(instructions, stack, ctx) {
         }
         const a = stack.pop();
         const b = stack.pop();
-        stack.push(b < a ? 1 : 0);
+        stack.push(makeNumber(b.value < a.value ? 1 : 0));
         break;
       }
       case "gt": {
@@ -206,7 +212,7 @@ async function runBody(instructions, stack, ctx) {
         }
         const a = stack.pop();
         const b = stack.pop();
-        stack.push(b > a ? 1 : 0);
+        stack.push(makeNumber(b.value > a.value ? 1 : 0));
         break;
       }
       case "clone": {
@@ -216,8 +222,8 @@ async function runBody(instructions, stack, ctx) {
         }
         const id = stack.pop();
         ctx.currentId = currentId++;
-        cloneBox(ctx, id);
-        stack.push(ctx.currentId);
+        cloneBox(ctx, id.value);
+        stack.push(makeId(ctx.currentId));
         break;
       }
       case "cloneAt": {
@@ -229,8 +235,8 @@ async function runBody(instructions, stack, ctx) {
         const y = stack.pop();
         const x = stack.pop();
         ctx.currentId = currentId++;
-        cloneBoxAt(ctx, id, x, y);
-        stack.push(ctx.currentId);
+        cloneBoxAt(ctx, id.value, x.value, y.value);
+        stack.push(makeId(ctx.currentId));
         break;
       }
       case "opacity": {
@@ -240,7 +246,7 @@ async function runBody(instructions, stack, ctx) {
         }
         const id = stack.pop();
         const val = stack.pop();
-        opacityBox(ctx, id, val);
+        opacityBox(ctx, id.value, val.value);
         break;
       }
       case "spin": {
@@ -249,7 +255,7 @@ async function runBody(instructions, stack, ctx) {
           return;
         }
         const id = stack.pop();
-        spinBox(ctx, id);
+        spinBox(ctx, id.value);
         break;
       }
       case "shake": {
@@ -258,7 +264,7 @@ async function runBody(instructions, stack, ctx) {
           return;
         }
         const id = stack.pop();
-        shakeBox(ctx, id);
+        shakeBox(ctx, id.value);
         break;
       }
       case "fade": {
@@ -268,7 +274,7 @@ async function runBody(instructions, stack, ctx) {
         }
         const id = stack.pop();
         const duration = stack.pop();
-        await fadeBox(ctx, id, duration);
+        await fadeBox(ctx, id.value, duration.value);
         break;
       }
       case "dup": {
@@ -323,7 +329,7 @@ async function runBody(instructions, stack, ctx) {
           return;
         }
         const ms = stack.pop();
-        await new Promise(resolve => setTimeout(resolve, ms));
+        await new Promise(resolve => setTimeout(resolve, ms.value));
         break;
       }
       case "defineVariable": {
@@ -331,17 +337,34 @@ async function runBody(instructions, stack, ctx) {
         break;
       }
       case "variable": {
-        const val = ctx.variables[inst.variableName];
-        if (Array.isArray(val)) {
-          queue.splice(idx, 0, ...val);
-        } else {
-          stack.push(val);
+        stack.push(ctx.variables[inst.variableName]);
+        break;
+      }
+      case "call": {
+        if (stack.length === 0) {
+          alert("stack underflow");
+          return;
         }
+        const block = stack.pop();
+        if (block?.type !== "block") {
+          alert("call expects a block");
+          return;
+        }
+        queue.splice(idx, 0, ...block.value);
         break;
       }
       default: {
         alert("unknown instruction");
       }
     }
+
+    renderInstructionType(inst.type);
+
+    console.log(stack);
+    renderStack([...stack]);
+
+    const interval = $("#debug-speed").val();
+    console.log(interval);
+    await new Promise(resolve => setTimeout(resolve, interval));
   }
 }

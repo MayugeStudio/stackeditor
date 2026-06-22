@@ -28,7 +28,7 @@
     <main>
       <div class="container"> <!-- flex -->
         <div class="references">
-          <div class="ref">
+          <div class="ref" data-example="10 20 30">
             <div class="flex-box">
               <p class="ref-number">1</p>
               <p class="ref-name">数値</p>
@@ -39,29 +39,29 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="3 4 + print">
             <div class="flex-box">
               <p class="ref-number">2</p>
               <p class="ref-name">四則演算 + - * /</p>
             </div>
             <div class="indented-block">
               <p class="ref-module">上2つを取り出して計算し、結果を積む</p>
-              <p class="ref-example">3 4 +   → 7</p>
+              <p class="ref-example">3 4 +   -> 7</p>
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="3 5 &lt; print">
             <div class="flex-box">
               <p class="ref-number">3</p>
               <p class="ref-name">比較 = &lt; &gt;</p>
             </div>
             <div class="indented-block">
               <p class="ref-module">上2つを比較し、真なら1・偽なら0を積む</p>
-              <p class="ref-example">3 5 &lt;   → 1</p>
+              <p class="ref-example">3 5 &lt;   -> 1</p>
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="42 print">
             <div class="flex-box">
               <p class="ref-number">4</p>
               <p class="ref-name">print</p>
@@ -72,7 +72,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place">
             <div class="flex-box">
               <p class="ref-number">5</p>
               <p class="ref-name">place</p>
@@ -83,7 +83,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place -&gt; b 300 100 b move">
             <div class="flex-box">
               <p class="ref-number">6</p>
               <p class="ref-name">move</p>
@@ -94,7 +94,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place -&gt; b 150 0 b rmove">
             <div class="flex-box">
               <p class="ref-number">7</p>
               <p class="ref-name">rmove</p>
@@ -105,7 +105,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place -&gt; b 200 200 b resize">
             <div class="flex-box">
               <p class="ref-number">8</p>
               <p class="ref-name">resize</p>
@@ -116,7 +116,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place -&gt; b 255 0 0 b color">
             <div class="flex-box">
               <p class="ref-number">9</p>
               <p class="ref-name">color</p>
@@ -127,18 +127,18 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place -&gt; b 1 2 / b opacity">
             <div class="flex-box">
               <p class="ref-number">10</p>
               <p class="ref-name">opacity</p>
             </div>
             <div class="indented-block">
               <p class="ref-module">val id で透明度を変更（0〜1、小数は割り算で）</p>
-              <p class="ref-example">1 2 / id opacity   → 0.5</p>
+              <p class="ref-example">1 2 / id opacity   -> 0.5</p>
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place delete">
             <div class="flex-box">
               <p class="ref-number">11</p>
               <p class="ref-name">delete</p>
@@ -149,7 +149,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place -&gt; b 500 b fade">
             <div class="flex-box">
               <p class="ref-number">12</p>
               <p class="ref-name">fade</p>
@@ -160,7 +160,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place clone -&gt; c 300 100 c move">
             <div class="flex-box">
               <p class="ref-number">13</p>
               <p class="ref-name">clone</p>
@@ -171,7 +171,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place -&gt; b 300 100 b cloneAt">
             <div class="flex-box">
               <p class="ref-number">14</p>
               <p class="ref-name">cloneAt</p>
@@ -182,7 +182,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place spin">
             <div class="flex-box">
               <p class="ref-number">15</p>
               <p class="ref-name">spin</p>
@@ -193,7 +193,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place shake">
             <div class="flex-box">
               <p class="ref-number">16</p>
               <p class="ref-name">shake</p>
@@ -204,7 +204,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="0 -&gt; i 5 [ i 110 * 50 + 100 100 100 place -&gt; _ i 1 + -&gt; i ] loop">
             <div class="flex-box">
               <p class="ref-number">17</p>
               <p class="ref-name">loop</p>
@@ -215,7 +215,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="1 [ 100 100 100 100 place spin ] if">
             <div class="flex-box">
               <p class="ref-number">18</p>
               <p class="ref-name">if</p>
@@ -226,7 +226,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 random print">
             <div class="flex-box">
               <p class="ref-number">19</p>
               <p class="ref-name">random</p>
@@ -237,7 +237,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="100 100 100 100 place -&gt; b 500 sleep b spin">
             <div class="flex-box">
               <p class="ref-number">20</p>
               <p class="ref-name">sleep</p>
@@ -248,7 +248,7 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="42 -&gt; x x print">
             <div class="flex-box">
               <p class="ref-number">21</p>
               <p class="ref-name">変数定義 -&gt;</p>
@@ -259,62 +259,62 @@
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="[ 100 100 100 100 place ] -&gt; makeBox makeBox call">
             <div class="flex-box">
               <p class="ref-number">22</p>
               <p class="ref-name">変数参照</p>
             </div>
             <div class="indented-block">
-              <p class="ref-module">変数を呼び出す（中身がブロックなら実行）</p>
+              <p class="ref-module">変数の値をスタックに積む（ブロックも値として積む）</p>
               <p class="ref-example">x</p>
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="5 dup + print">
             <div class="flex-box">
               <p class="ref-number">23</p>
               <p class="ref-name">dup</p>
             </div>
             <div class="indented-block">
-              <p class="ref-module">トップを複製する　[a] → [a a]</p>
+              <p class="ref-module">トップを複製する　[a] -> [a a]</p>
               <p class="ref-example">5 dup</p>
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="1 2 swap print">
             <div class="flex-box">
               <p class="ref-number">24</p>
               <p class="ref-name">swap</p>
             </div>
             <div class="indented-block">
-              <p class="ref-module">上2つを交換する　[a b] → [b a]</p>
+              <p class="ref-module">上2つを交換する　[a b] -> [b a]</p>
               <p class="ref-example">1 2 swap</p>
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="1 2 over print">
             <div class="flex-box">
               <p class="ref-number">25</p>
               <p class="ref-name">over</p>
             </div>
             <div class="indented-block">
-              <p class="ref-module">2番目を複製して積む　[a b] → [a b a]</p>
+              <p class="ref-module">2番目を複製して積む　[a b] -> [a b a]</p>
               <p class="ref-example">1 2 over</p>
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="1 2 3 rot print">
             <div class="flex-box">
               <p class="ref-number">26</p>
               <p class="ref-name">rot</p>
             </div>
             <div class="indented-block">
-              <p class="ref-module">上3つを回転する　[a b c] → [b c a]</p>
+              <p class="ref-module">上3つを回転する　[a b c] -> [b c a]</p>
               <p class="ref-example">1 2 3 rot</p>
             </div>
           </div>
 
-          <div class="ref">
+          <div class="ref" data-example="[ 1 2 + ] call print">
             <div class="flex-box">
               <p class="ref-number">27</p>
               <p class="ref-name">ブロック [ ]</p>
@@ -324,6 +324,17 @@
               <p class="ref-example">[ 1 2 + ]</p>
             </div>
           </div>
+
+          <div class="ref" data-example="[ 100 100 100 100 place ] call">
+            <div class="flex-box">
+              <p class="ref-number">28</p>
+              <p class="ref-name">call</p>
+            </div>
+            <div class="indented-block">
+              <p class="ref-module">トップのブロックを関数として実行する</p>
+              <p class="ref-example">[ 1 2 + ] call</p>
+            </div>
+          </div>
         </div>
 
         <div class="main-content">
@@ -331,14 +342,23 @@
             <div class="tabs">
               <button class="tab-button active" data-tab="editor">入力欄</button>
               <button class="tab-button" data-tab="result">結果</button>
-              <div class="buttons">
-                <button class="run-button">
-                  実行
-                </button>
-                <button class="clear-button">
-                  全てクリア
-                </button>
-              </div>
+            </div>
+            <div class="buttons">
+              <button class="example-1-button">
+                例1
+              </button>
+              <button class="example-2-button">
+                例2
+              </button>
+              <button class="clear-button">
+                全てクリア
+              </button>
+              <button class="run-button">
+                実行
+              </button>
+              <button class="clear-and-run-button">
+                全てクリアして実行
+              </button>
             </div>
           </div>
 
@@ -349,30 +369,27 @@
           </div>
 
           <div id="result-view" class="view">
-            <div id="result"></div>
+            <div id="result">
+            </div>
           </div>
         </div>
       </div>
     </main>
 
+    <div id="debug-info">
+      <div id="inst-name"></div>
+      <div id="stack-view"></div>
+      <div>
+        <p id="debug-speed-label">命令間隔</p>
+        <input id="debug-speed" type="range" min="0" max="1000" value="30" step="10"></input>
+      </div>
+    </div>
+
     <footer>
     </footer>
 
     <!-- 外部JavaScriptの読み込み -->
-    <script type="module" src="editor.js"></script>
+    <script type="module" src="index.js"></script>
 
 </body>
-
-<template>
-  <div class="ref">
-    <div class="flex-box">
-      <p class="ref-number">1</p>
-      <p class="ref-name">変数</p>
-    </div>
-    <div class="indented-block">
-      <p class="ref-module">機能詳細</p>
-      <p class="ref-example">機能例</p>
-    </div>
-  </div>
-</template>
 </html>

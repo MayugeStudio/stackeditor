@@ -2,9 +2,9 @@ const isNumericString = (str) => /^[0-9]+$/.test(str);
 
 export default function parseProgram(program) {
   const result = [];
-  program = program.replaceAll("\n", " ");
   console.log(program);
-  const words = program.split(" ");
+  const words = program.trim().split(/\s+/);
+  console.log(words);
   for (let idx=0; idx<words.length; idx++) {
     if (isNumericString(words[idx])) {
       result.push({
@@ -125,6 +125,10 @@ export default function parseProgram(program) {
       }
       case "sleep": {
         result.push({ type: "sleep" });
+        break;
+      }
+      case "call": {
+        result.push({ type: "call" });
         break;
       }
       case "[": {

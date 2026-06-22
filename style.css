@@ -12,6 +12,10 @@
   color: var(--accent);
 }
 
+body {
+  position: relative;
+}
+
 header {
   padding: 10px;
   border-bottom: 2px solid #ddd;
@@ -53,6 +57,21 @@ main {
 .container div.references .ref {
   border-bottom: 1px solid #bababa;
   padding: 1.5rem 0.8rem;
+  color: #bababa;
+}
+
+.container div.references .ref:hover {
+  cursor: pointer;
+}
+
+/* .container div.references .ref:hover .ref-number, */
+/* .container div.references .ref:hover .ref-name { */
+/*   color: #cecece; */
+/* } */
+
+.container div.references .ref:hover .ref-module,
+.container div.references .ref:hover .ref-example {
+  color: var(--accent);
 }
 
 .container div.references .ref .ref-number {
@@ -68,11 +87,16 @@ main {
 }
 
 .container div.references .ref .ref-module {
+  color: var(--text);
 
 }
 
 .container div.references .ref .ref-example {
+  color: var(--text);
+}
 
+.container div.references .ref .ref-example::before {
+  content: "例: ";
 }
 
 .container div.main-content {
@@ -83,12 +107,13 @@ main {
 
 /* メニューバー：タブで入力欄と結果を切り替える */
 .container div.main-content #menubar {
-  border-bottom: 2px solid #bababa;
   display: flex;
+  border-bottom: 2px solid #bababa;
 }
 
 .container div.main-content #menubar .tabs {
   display: flex;
+  justify-content: flex-start;
 }
 
 .container div.main-content #menubar .tabs .tab-button {
@@ -107,28 +132,28 @@ main {
   border-bottom: 2px solid var(--accent);
 }
 
-.container div.main-content #menubar .tabs .buttons {
+.container div.main-content #menubar .buttons {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   border-bottom: 2px solid #ddd;
+  margin-left: auto;
 }
 
-.container div.main-content #menubar .tabs .buttons button {
+.container div.main-content #menubar .buttons button {
   all: unset;
   padding: 1rem;
   cursor: pointer;
 }
 
-.container div.main-content #menubar .tabs .buttons button:hover {
+.container div.main-content #menubar .buttons button:hover {
   transform: scale(1.05);
 }
 
 
 .container div.main-content .view {
+  display: none;
   flex: 1;
   min-height: 0;
-  display: none;
   flex-direction: column;
 }
 
@@ -140,6 +165,69 @@ main {
   flex: 1;
   min-height: 0;
   position: relative;
+}
+
+#debug-info {
+  position: absolute;
+  bottom: 0;
+  right: 1rem;
+}
+
+#debug-info #inst-name {
+  height: 1rem;
+  font-size: 1.5rem;
+  text-align: center; 
+  width: 150px;
+}
+
+#debug-info #stack-view {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  width: 150px;
+  height: 300px;
+  border-left: 1px solid #fefefe;
+  border-right: 1px solid #fefefe;
+  border-bottom: 1px solid #fefefe;
+}
+
+#debug-info #stack-view .stack-element {
+  height: 1.5rem;
+  text-align: center;
+  border-top: 1px solid #fefefe;
+}
+
+#debug-info #stack-view .stack-element.pushing {
+  animation: stack-push 0.25s ease;
+  border-bottom: 1px solid #fefefe
+}
+
+#debug-info #stack-view .stack-element.popping {
+  animation: stack-pop 0.25s ease forwards;
+  border-bottom: 1px solid #fefefe
+}
+
+@keyframes stack-push {
+  from { transform: translateY(-1.5rem); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes stack-pop {
+  from { transform: translateY(0); opacity: 1; }
+  to   { transform: translateY(-1.5rem); opacity: 0; }
+}
+
+#debug-info > div {
+  width: 100%;
+}
+
+#debug-info div #debug-speed-label {
+  text-align: center;
+}
+
+#debug-info div #debug-speed {
+  width: 100%;
+  text-align: center;
 }
 
 .container div.main-content #command-area {
@@ -178,7 +266,7 @@ main {
 }
 
 .indented-block {
-  margin-left: 2rem;
+  margin-left: 1.2rem;
 }
 
 .box {
@@ -218,5 +306,30 @@ main {
 @keyframes particle-fly {
   0%   { transform: translate(0, 0) scale(1); opacity: 1; }
   100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+}
+
+/* print の結果を debug-info の真上に大きく出すフラッシュ表示 */
+.print-output {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  width: 150px;
+  text-align: center;
+  font-size: 4rem;
+  font-weight: bold;
+  color: var(--accent);
+  background-color: transparent;
+  /* text-shadow: 0 0 24px var(--accent); */
+  pointer-events: none;
+  z-index: 1000;
+  animation: print-flash 1.4s ease forwards;
+}
+
+@keyframes print-flash {
+  0%   { transform: scale(0.5); opacity: 0; }
+  15%  { transform: scale(1.15); opacity: 1; }
+  25%  { transform: scale(1); opacity: 1; }
+  70%  { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
 }
 
