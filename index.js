@@ -61,20 +61,6 @@ $(document).ready(function() {
       $("#command-input").val(example2);
     });
 
-    // 実行ボタンなど
-    $(".run-button").on("click", async function() {
-      console.log("clicked");
-      console.log($("#command-input"));
-
-      activateTab("result");
-      const program = $("#command-input").val();
-      const insts = parseProgram(program);
-      for (const inst of insts) {
-        console.log(inst);
-      }
-      await runInstructions(insts);
-    });
-
     $(".clear-button").on("click", function() {
       console.log("clear");
       $("#result").empty();
